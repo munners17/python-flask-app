@@ -1,14 +1,16 @@
 # Python and Flask Workshop
-Today we will be building the image and running the container for Python and Flask.
+Welcome to the python-flask-app repo.  Today we will be building the image and running the container for **Python** and **Flask**, which can be found in this repo.  But in order to make this general app your own, we will need to learn more about **Github**.
 
+* What's Github? - https://guides.github.com/activities/hello-world/
 * What's Python? - https://www.w3schools.com/python/python_intro.asp
-* What's Flask? - 
+* What's Flask? - https://palletsprojects.com/p/flask/
 
 You will use Flask to build a web application to interact with your MariaDB servier.
 
 #### Steps
 1. Create a free github user account - https://github.com/join?plan=free&source=pricing-card-free
 1. Install SublimeText for syntax coloring - https://www.sublimetext.com/
+1. Complete the Github hello-world activity linked to above.
 1. Review Dockerfile
 1. Install Flask
 
