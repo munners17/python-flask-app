@@ -77,9 +77,9 @@ if __name__ == "__main__":
 Try the URLs in your browser:
 
 - http://127.0.0.1:5000/
-- http://127.0.0.1:5000/hello
-- http://127.0.0.1:5000/members
-- http://127.0.0.1:5000/members/Jordan/
+- http://127.0.0.1:5000/destinations
+- http://127.0.0.1:5000/customers
+- http://127.0.0.1:5000/customers/Jordan/
     
     
 ### Rendering HTML
