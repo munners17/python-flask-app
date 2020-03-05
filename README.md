@@ -4,6 +4,7 @@ Welcome to the python-flask-app repo.  Today we will be building the image and r
 * What's Github? - https://guides.github.com/activities/hello-world/
 * What's Python? - https://www.w3schools.com/python/python_intro.asp
 * What's Flask? - https://palletsprojects.com/p/flask/
+   * Flask API: https://flask.palletsprojects.com/en/1.1.x/api/
 
 You will use Flask to build a web application to interact with your MariaDB servier.
 
@@ -206,6 +207,137 @@ def customers():
    ### TASK: List Destinations
    1.  Have all the Diveshop Destinations returned when accessing http://127.0.0.1:5000/destinations
    
+   ### TASK: List Destinations
+   1.  Have all the Diveshop Destinations names and their travel cost display when accessing http://127.0.0.1:5000/destinations
+   
+   ### Forms
+   Basic user input is handled by HTTP Forms.
+   
+   Try letting the user hit a button to choose which list of records to return from the home page.
+   
+   Create a new template: `index.html`:
+   ```
+   <html>
+  <head>
+    <title>INFO 257 Workshop Form</title>
+    <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+
+  <body>
+    <br>
+    
+    <form method="POST" action="/customers">
+
+      <div class="form-group">
+        <input type="submit" value="List Customers" />
+      </div>
+    </form>
+    
+    <br>
+    
+    <form method="POST" action="/destinations">
+
+      <div class="form-group">
+        <input type="submit" value="List Destinations" />
+      </div>
+    </form>
+    
+  </body>
+
+</html>
+```
+
+### TASK: 
+1.  Update index.py to render the new index.html at the root/home location: http://127.0.0.1:5000/ . You should receive an error message declaring an unallowalbe method. To proceed:
+1.  The POST method must be declared as an allowable request for the "destinatons/" and "customers/" routes. Edit existing routes in index.py that the POST in index.html is linked with:
+
+```
+@app.route("/destinations", methods=["POST"])
+
+@app.route("/customers", methods=["POST"])
+```
+
+Click the buttons on http://127.0.0.1:5000/ to confirm they produce the correct list of data
+
+Now try a text box to search the database. We will enter the Accomodation Type to return destinations that match that type (Expensive, Moderate, Cheap)
+
+First add a text box form element that posts to the destinations/ URL.
+
+**index.html**:
+Add this form element after the last '</form>' tag
+```
+<br>
+<form method="GET" action="/destinations">
+	<label for="search">Find Destinations by Accomodation</label>
+	<input id="search" name="search" class="form-control" type="text" /><br />
+</form>
+```
+
+Now there are two form methods handled by the destionations/ flask method. Produce different logic depending on the method issued:
+
+**index.py**:
+Replace the beginning of the dest() method, everything before `names = []`, with the following:
+```
+if request.method == "GET":
+        search = request.args.get('search')
+
+        result = db.engine.execute("select * from DEST where Accomodations=%s",search)
+   else:
+        result = db.engine.execute("select * from DEST")
+```
+Try it out by typing an Accomodation type into the text box @ http://127.0.0.1:5000/	
+
+Now a text box is not very friendly for matching an enumerated list of types, like Accomodation Type. Let's create a dropdown to allow the user to select from the available options.
+
+**index.html**:
+Replace the GET form elements with the following that dynamically generates the dropdown options based on the `data` variable passed:
+```
+<form method="GET" action="/destinations">
+			<label for="search">Find Destinations by Accomodation</label>
+  			<select id="accomodations" name="accomodations">
+  				{% for ui_row in data %}
+    			<option value="{{ui_row.Accomodations}}">{{ui_row.Accomodations}}</option>
+    			{% endfor %}
+    		</select>
+    		<input type="submit" value="Submit" />
+		</form>
+```
+
+Edit the flask route method for URL(/) to send the proper Accomodation type data to be displayed in the drop down button:
+**index.py**:
+
+```
+@app.route("/")
+def index():
+   result = db.engine.execute("select DISTINCT(Accomodations) from DEST")
+   accs = []
+
+   for row in result:
+       name = {}
+       name["Accomodations"] = row[0]
+       accs.append(name)
+
+   return render_template("index.html", data=accs)
+```
+
+Right-click the web page and select "View Source" to view the web page returned back from the server to your client (browser). Verify the HTML has been updated dynamically to include all the Accomodation options:
+```
+<form method="GET" action="/destinations">
+			<label for="search">Find Destinations by Accomodation</label>
+			<!--<input id="search" name="search" class="form-control" type="text" /><br />-->
+  			<select id="accomodations" name="accomodations">
+  				
+    			<option value="Cheap">Cheap</option>
+    			
+    			<option value="Moderate">Moderate</option>
+    			
+    			<option value="Expensive">Expensive</option>
+    			
+    		</select>
+    		<input type="submit" value="Submit" />
+		</form>
+```		
    
    ### TODO
    1.  FORM example with Button: FORM submit via button to query the database
