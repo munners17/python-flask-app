@@ -8,12 +8,12 @@ Welcome to the python-flask-app repo.  Today we will be building the image and r
 
 You will use Flask to build a web application to interact with your MariaDB servier.
 
-#### Steps
+#### Prerequisites
 1. Create a free github user account - https://github.com/join?plan=free&source=pricing-card-free
 1. Install SublimeText for syntax coloring - https://www.sublimetext.com/
-1. Complete the Github hello-world activity linked to above.
-1. Review Dockerfile
-1. Install Flask
+
+## Github Primer
+1. Complete the Github hello-world activity linked to above: https://guides.github.com/activities/hello-world/ 
 
 ## Create your final project webapp
 1. From the https://github.com/munners17/python-flask-app repo, click the *Use this template* button
@@ -22,6 +22,7 @@ You will use Flask to build a web application to interact with your MariaDB serv
 	*Note:  Feel free to make your project repo public after projects have been turned in*
 1. Clone your newly created repo using your method of choice.
 
+## Review the Dockerfile
 
 ## Build and Start Flask Container
 1.  In the command line, move to your previously cloned repo
