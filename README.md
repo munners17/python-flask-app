@@ -22,6 +22,18 @@ You will use Flask to build a web application to interact with your MariaDB serv
 1. Clone your newly created repo using your method of choice.
 
 ## Review the Dockerfile
+A Dockerfile is just a text file that that contains all the commands, in order, for building a specific docker image. The Docker Engine will automatically build the image when running the `docker build` command. For the class project, you may have to edit the Dockefile if you have additional dependencies.
+   * Dockerfile Reference: https://docs.docker.com/engine/reference/builder/
+   * Dockerfile best practices: https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
+
+Some basic Dockerfile commands are:
+   * `FROM`: Identifies the base application of the image. A Dockerfile must start with a `FROM` instruction. 
+   * `RUN`: Install any dependencies
+   * `WORKDIR`: Sets the working directory other commands will work from
+   * `CMD`:  Sets the command to be executed when running a container based on this image (not when the image is being built). This in essence identifies the application the container is encapsulating.
+   * `COPY`: Adds files from your Docker client’s current directory.
+   
+Note we are not COPYING python files into the container. Instead we will create a mount point that will allow the webapp/ subfolder on your host to be shared inside the container, similar to a network mount.
 
 ## Build and Start Flask Container
 1.  In the command line, move to your previously cloned repo
@@ -31,21 +43,24 @@ You will use Flask to build a web application to interact with your MariaDB serv
     * `docker network create --driver=bridge db-network`
     * `docker network connect db-network mariadb-diveshop`
 1.  Create and run the container, connecting it to the shared network, db-network
-    *`docker run --name python-app -p 5000:5000 --mount type=bind,source="${PWD}"/webapp,target=/app --net db-network munners17/python-flask`
+    `docker run --name python-app -p 5000:5000 --mount type=bind,source="${PWD}"/webapp,target=/app --net db-network munners17/python-flask`
 
 ## Login to your Flask Container
-1. `docker exec -it name-of-your-flask-container /bin/sh`
+1. Use `docker exec` to start an interactive shell (`sh` = Bourne shell) inside the container.  Command to login: `docker exec -it python-app sh`
+1. Start python and run a few python commands. Hit <enter> after each of the following:
 
 * `python3`
 * `4 + 3`
 * `x = [1, 2, 3, 4, 5]`
 * `print(x)`
 
-Depending on your skill level, you may want to walk through this introduction:  https://www.w3schools.com/python/python_intro.asp
+Depending on your skill level, you may want to walk through this introduction: https://www.w3schools.com/python/python_intro.asp
 
 ## Flask Workshop
 
-### Create the first app
+### Update Existing Web App
+You will find a basic implementation of the Flask web application framework inside this report at `webapp/index.py`.
+start building out your web app 
 Edit the file called index.py
 
 ```
