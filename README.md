@@ -18,11 +18,14 @@ You will use Flask to build a web application to interact with your MariaDB serv
 ## Create your final project webapp
 1. From the https://github.com/munners17/python-flask-app repo, click the *Use this template* button
 1. Name the repo after a webapp name related to your final project
-1. Choose a private repo
+1. Choose a private repo!  
+	*Note:  Feel free to make your project repo public after projects have been turned in*
+1. Clone your newly created repo using your method of choice.
 
-## Install Flask
-1.  In the command line, move to our class repo
-    * `cd docker/python-flask`
+
+## Build and Start Flask Container
+1.  In the command line, move to your previously cloned repo
+    * `cd path/to/repo`
 1.  Build the docker image `docker build -t munners17/python-flask .`
 1.  Create a docker network to allow different docker containers to easily communicate with each other over an IP network. Then bind the existing mariadb container to the newly created network bridge.
     * `docker network create --driver=bridge db-network`
