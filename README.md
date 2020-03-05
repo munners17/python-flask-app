@@ -10,8 +10,7 @@ You will use Flask to build a web application to interact with your MariaDB serv
 
 #### Prerequisites
 1. Create a free github user account - https://github.com/join?plan=free&source=pricing-card-free
-1. Install SublimeText for syntax coloring - https://www.sublimetext.com/
-
+1. Install [SublimeText](https://www.sublimetext.com/) or [Textmate for Mac](https://software.berkeley.edu/textmate) for syntax coloring (or editor of your choosing) 
 ## Github Primer
 1. Complete the Github hello-world activity linked to above: https://guides.github.com/activities/hello-world/ 
 
