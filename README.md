@@ -337,10 +337,12 @@ Right-click the web page and select "View Source" to view the web page returned 
     		</select>
     		<input type="submit" value="Submit" />
 		</form>
-```		
-   
+```
+
+### TASK: Capture dropdown value
+1.  Edit the destinations/ route method to capture the selected dropdown value to allow the proper Destinations to be displayed [Only requires editing one word]
+1.  Verify proper destinations displayed after hitting submit button next to dropdown
+
    ### TODO
-   1.  FORM example with Button: FORM submit via button to query the database
-   1.  FORM example with free form text field: Capture specific FORM fields and SEARCH DB
    1.  STYLE of HTML
    
