@@ -33,35 +33,43 @@ Some basic Dockerfile commands are:
    * `CMD`:  Sets the command to be executed when running a container based on this image (not when the image is being built). This in essence identifies the application the container is encapsulating.
    * `COPY`: Adds files from your Docker client’s current directory.
    
-Note we are not COPYING python files into the container. Instead we will create a mount point that will allow the webapp/ subfolder on your host to be shared inside the container, similar to a network mount.
+Note we are not COPYING python files into the container. Instead we will create a mount point that will allow the webapp/ subfolder on your host (inside this repo) to be shared inside the container, similar to a network mount.
 
 ## Build and Start Flask Container
-1.  In the command line, move to your previously cloned repo
+1.  On the command line, move to your previously cloned repo
     * `cd path/to/repo`
 1.  Build the docker image `docker build -t munners17/python-flask .`
 1.  Create a docker network to allow different docker containers to easily communicate with each other over an IP network. Then bind the existing mariadb container to the newly created network bridge.
     * `docker network create --driver=bridge db-network`
     * `docker network connect db-network mariadb-diveshop`
 1.  Create and run the container, connecting it to the shared network, db-network
-    `docker run --name python-app -p 5000:5000 --mount type=bind,source="${PWD}"/webapp,target=/app --net db-network munners17/python-flask`
+    * `docker run --name python-app -p 5000:5000 --mount type=bind,source="${PWD}"/webapp,target=/app --net db-network munners17/python-flask`
+    * Remember `docker run` CREATES AND STARTS the container. When needing to start the container in the future, use `docker start -a python-app`, since it does not need to be re-created.
+1.  Verify the container is Up by checking the STATUS column after executing `docker ps` in another terminal
 
 ## Login to your Flask Container
-1. Use `docker exec` to start an interactive shell (`sh` = Bourne shell) inside the container.  Command to login: `docker exec -it python-app sh`
+1. Use `docker exec` to start an interactive session inside the container and run the `bash` shell to access the terminal.  Command to login: `docker exec -it python-app bash`
 1. Start python and run a few python commands. Hit <enter> after each of the following:
 
 * `python3`
 * `4 + 3`
 * `x = [1, 2, 3, 4, 5]`
 * `print(x)`
+* `exit()`
 
 Depending on your skill level, you may want to walk through this introduction: https://www.w3schools.com/python/python_intro.asp
 
 ## Flask Workshop
 
 ### Update Existing Web App
-You will find a basic implementation of the Flask web application framework inside this report at `webapp/index.py`.
-start building out your web app 
-Edit the file called index.py
+You will find a basic implementation of the Flask web application framework in `webapp/index.py`. The python container is currently running **index.py**. See what index.py is doing by navigating to http://localhost:5000/
+
+`[CHANGE ME]` should appear in your browser window.
+
+You may have noticed we have not started a Web Server to handle the HTTP traffic from our web app to the browser! Well, Flask is being run in Developmemnt mode which launces its own local web server for testing purposes - this is the web server serving your browser client right now. This is not recommended for a Production environment.
+
+Also notice in **index.py** that debug=True when running the Flask object. This enables the debugger and also allows the server to reload whenever it detects a code change. Try it out by starting to build out your web application:
+1.  Use Sublime Text or a text editor of your choice to edit the **index.py** and replace "[CHANGE ME!] with "Hello World!":
 
 ```
 from flask import Flask
@@ -74,17 +82,17 @@ def hello():
 if __name__ == "__main__":
    app.run(debug=True)
 ```
-Open http://localhost:5000/ in your webbrowser, and “Hello World!” should appear.
+Open http://localhost:5000/ in your web browser, and “Hello World!” should appear without having to restart the application.
 
 ### Creating URL routes
-URL Routing makes URLs in your Web app easy to remember.
+URL routing make URLs in your Web app easy to remember and organize. Use the @route() decorator to bind functions to a specific URL. The function will be called when the URL is accessed by the browser.
 
 We will now create some URL routes:
 - /destinations
 - /customers/
 - /members/name/
 
-Copy the code below into index.py
+Replace the code in **index.py** with the code below
 ```
 from flask import Flask, render_template, request, redirect
 app = Flask(__name__)
@@ -118,9 +126,9 @@ Try the URLs in your browser:
     
 ### Rendering HTML
 
-Flask can generate HTML by referencing template files you locate in the /templates/ subdirectory. Use the render_template() function to call on the appropriate template and pass it any data you want displayed.
+Flask can generate HTML by referencing template files you locate in the /templates/ subdirectory. Use the render_template() function to call on the appropriate template and pass it any data you want to use or display.
 
-Create show_c.html in the templates subdirectory:
+Create a file named **show_c.html** in a new templates/ subdirectory:
 ```
 <html>
 <head><title>INFO 257 workshop show data</title>
@@ -132,7 +140,7 @@ Create show_c.html in the templates subdirectory:
 </html>
 ```
 
-Edit the customers/name route in the Flask app to render the new template:
+Edit the `customers/<string:name>` route in the Flask app to render the new template:
 
 ```
 @app.route("/customers/<string:name>/")
@@ -141,12 +149,12 @@ def getMember(name):
    'show_c.html',customer=name)
 ```
 
-You can then open to see an HTML formatted page : http://127.0.0.1:5000/customers/Jackson/
+You can then open to see an HTML formatted page: http://127.0.0.1:5000/customers/Jackson/
 
 ### Passing Data 
-The template HTML file can reference data passed by render_template() by utilizing a special syntax defined by the [Jinja2 template](https://jinja.palletsprojects.com/en/2.11.x/templates/) engine. You implemented this in the step above by passing the `name` variable to show_c.html as `customer`.
+The template HTML file can reference data passed by render_template() by utilizing a special syntax defined by the [Jinja2 template](https://jinja.palletsprojects.com/en/2.11.x/templates/) engine. You implemented this in the step above by passing the `name` variable to show_c.html as the variable `customer`.
 
-You can pass any data the python/flask app has access to, such as a local variable:
+You can pass any data the python/flask app has access to, such as a local variable. Replace the `/customers` route in **index.py**:
 
 ```
 @app.route("/customers")
@@ -158,33 +166,35 @@ You can then open to see an HTML formatted page with the local variable passed: 
 
 
 #### Task: Create a Template
-1.  Create a new template file (show_d.html) that prints out a destination name of your choosing when accessing this URL: `localhost:5000/destinations`
+1.  Create a new template file (show_d.html) that displays a Diveshop destination name of your choosing when accessing this URL: `localhost:5000/destinations`
 
 
 ### Accessing the Database
 
-Flask extends a library that allows for connecting to a database, SQLAlchemy: https://flask-sqlalchemy.palletsprojects.com/en/2.x/quickstart/
+Flask extends the SQLAlchemy library that allows for connecting to a database named : https://flask-sqlalchemy.palletsprojects.com/en/2.x/quickstart/
 
 You will be able to execute SQL querires and receive the results programatically (similar to your DataGrip client).
 
-First, update the python app (index.py) to connect to your Diveshop database via SQLAlchemy by adding the following lines:
+Use the `SQLALCHEMY_DATABASE_URI` configuration of the Flask object to designate the location and credentials of your mariaDBMS and database name. Note the the docker containers can identify themselves over the Docker network using DNS where their address is <container-name>.<network-name>. In this case, our mariaDB container can be identified using `mariadb-diveshop.db-network`
 
+First, update the web app to connect to your Diveshop database via SQLAlchemy. 
+Replace the first 2 lines in **index.py** with the following:
 ```
 from flask import Flask,render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
-
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:mypass@mariadb-diveshop.db-network/Diveshop'
 db = SQLAlchemy(app) 
 
 @app.route("/database")
-def index():
+def db():
    result = db.engine.execute("SELECT DATABASE()")
    names = [row[0] for row in result]
    return names[0] 
 
 ```
+
 `Diveshop` should be displayed when accessing : http://127.0.0.1:5000/database
 
 ### List Customers in the Database
