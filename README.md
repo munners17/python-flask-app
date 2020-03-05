@@ -42,6 +42,8 @@ You will use Flask to build a web application to interact with your MariaDB serv
 * `x = [1, 2, 3, 4, 5]`
 * `print(x)`
 
+Depending on your skill level, you may want to walk through this introduction:  https://www.w3schools.com/python/python_intro.asp
+
 ## Flask Workshop
 
 ### Create the first app
