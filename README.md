@@ -15,9 +15,12 @@ You will use Flask to build a web application to interact with your MariaDB serv
 1. Review Dockerfile
 1. Install Flask
 
+## Create your final project webapp
+1. From the https://github.com/munners17/python-flask-app repo, click the *Use this template* button
+1. Name the repo after a webapp name related to your final project
+1. Choose a private repo
 
 ## Install Flask
-
 1.  In the command line, move to our class repo
     * `cd docker/python-flask`
 1.  Build the docker image `docker build -t munners17/python-flask .`
