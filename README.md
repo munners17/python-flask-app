@@ -35,7 +35,7 @@ You will use Flask to build a web application to interact with your MariaDB serv
     *`docker run --name python-app -p 5000:5000 --mount type=bind,source="${PWD}"/webapp,target=/app --net db-network munners17/python-flask`
 
 ## Login to your Flask Container
-1. Command to login
+1. `docker exec -it name-of-your-flask-container /bin/sh`
 
 * `python3`
 * `4 + 3`
