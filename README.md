@@ -188,7 +188,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:mypass@mariadb-div
 db = SQLAlchemy(app) 
 
 @app.route("/database")
-def db():
+def datab():
    result = db.engine.execute("SELECT DATABASE()")
    names = [row[0] for row in result]
    return names[0] 
