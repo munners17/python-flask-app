@@ -250,6 +250,7 @@ The list of customers in Diveshop should be displayed when accessing: http://127
 
    ### TASK: List Destinations
    1.  Have all the Diveshop Destinations names and their travel cost display when accessing http://127.0.0.1:5000/destinations
+      * Note: Copy+Paste from the Customers logic to allow you to just change the SQL query
    
    ### Forms
    Basic user input is handled by HTTP Forms.
@@ -290,8 +291,9 @@ The list of customers in Diveshop should be displayed when accessing: http://127
 ```
 
 ### TASK: List Customers and Destinations with Button Click
-1.  Update index.py to render the new index.html at the root/home location: http://127.0.0.1:5000/ . You should receive an error message declaring an unallowalbe method. To proceed, complete the next step:
-1.  The POST method must be declared as an allowable request for the "destinatons/" and "customers/" routes. Edit existing route parameters in **index.py** that the POST in **index.html** is linked with:
+1.  Update index.py to render the new index.html at the root/home location: http://127.0.0.1:5000/ . You should see 2 new buttons
+   * You should receive an error message declaring an unallowalbe method after clicking on the bugtton. To proceed, complete the next step:
+1.  The HTTP POST method must be declared as an allowable request for the "destinatons/" and "customers/" routes (Note HTTP/GET is the default). Edit existing route parameters in **index.py** that the POST in **index.html** is linked with:
 
 ```
 @app.route("/destinations", methods=["POST", "GET"])
@@ -318,7 +320,7 @@ Add this form element after the last '</form>' tag
 Now there are two form methods handled by the `/destionations` flask method. Produce different logic depending on the method issued:
 
 **index.py**:
-Replace the beginning of the `dest()` method, everything before `names = []`, with the following:
+Replace the beginning of the `dest()` method, everything before `names = []`, with the following logic. Note this may have to be update to integrate with the varialbe names you used in a previous Task that implemented this function():
 ```
 if request.method == "GET":
     search = request.args.get('search')
