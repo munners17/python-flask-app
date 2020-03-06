@@ -80,7 +80,7 @@ def hello():
    return "Hello World!"
  
 if __name__ == "__main__":
-   app.run(debug=True)
+   app.run(host="0.0.0.0",debug=True)
 ```
 Open http://localhost:5000/ in your web browser, and “Hello World!” should appear without having to restart the application.
 
@@ -114,7 +114,7 @@ def getMember(name):
    return name
  
 if __name__ == "__main__":
-   app.run(debug=True)
+   app.run(host="0.0.0.0", debug=True)
 ```
 Try the URLs in your browser:
 
@@ -128,7 +128,7 @@ Try the URLs in your browser:
 
 Flask can generate HTML by referencing template files you locate in the /templates/ subdirectory. Use the render_template() function to call on the appropriate template and pass it any data you want to use or display.
 
-Create a file named **show_c.html** in a new templates/ subdirectory:
+Create a file named **show_c.html** in a new /templates/ subdirectory relative to where **index.py** is located (inside `/webapp/):
 ```
 <html>
 <head><title>INFO 257 workshop show data</title>
@@ -308,7 +308,7 @@ Now try a text box to search the database. We will enter the Accomodation Type t
 First add a text box form element that posts to the `/destinations` URL.
 
 **index.html**:
-Add this form element after the last '</form>' tag
+Add this form element after the last `</form>` tag
 ```
 <br>
 <form method="GET" action="/destinations">
@@ -317,7 +317,7 @@ Add this form element after the last '</form>' tag
 </form>
 ```
 
-Now there are two form methods handled by the `/destionations` flask method. Produce different logic depending on the method issued:
+Now there are two form methods handled by the `/destinations` flask method. Produce different logic depending on the method issued:
 
 **index.py**:
 Replace the beginning of the `dest()` method, everything before `names = []`, with the following logic. Note this may have to be update to integrate with the varialbe names you used in a previous Task that implemented this function():
