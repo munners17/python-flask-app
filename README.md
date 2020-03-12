@@ -414,7 +414,7 @@ Now refresh index.html and see how Bootstrap affects the look of the HTML elemen
 
 Bootstrap has changed the default header elements (h1 in this case).
 
-Let's override the Bootstrap styling with our own:
+Let's override the Bootstrap styling with our own. Paste the following after the </head> tag to define our own CSS rules for the body and h1 elements:
 
 ```
 <!-- Create our own custom CSS -->
