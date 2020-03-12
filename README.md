@@ -386,6 +386,73 @@ Right-click the web page and select "View Source" to view the web page returned 
 1.  Edit the `/destinations` route method to capture the selected dropdown value to allow the proper Destinations to be displayed [Only requires editing one word]
 1.  Verify proper destinations displayed after hitting submit button next to dropdown
 
-   ### Next Workshop
-   1.  HTML Styling
-   
+
+## Workshop Continued... Web Styling
+
+HTML elements can be changed by changing the style for how that element is displayed. Styling refers to color, sizing, font etc...  CSS allows you to set the rules for different styles and group them into classes.
+
+Bootstrap is a framework that, among other things, contains many pre-defined styles in CSS format that can be referred by their class name. HTML elements just need to set their "class" attribute to the class names defined by bootstrap and the associated styling will be applied to that element.
+
+### Integrate Bootstrap
+First, load the index.html on your browser to review the look of how defaul html displays the page: http://127.0.0.1:5000/
+
+Next, import the bootstrap templates by linking to a server hosting the bootstrap content.
+
+Add the following after the <meta> element in index.html:
+```
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library: Supports Javascript Plugins -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+```
+
+Now refresh index.html and see how Bootstrap affects the look of the HTML elements
+
+Bootstrap has changed the default header elements (h1 in this case).
+
+Let's override the Bootstrap styling with our own:
+
+```
+<!-- Create our own custom CSS -->
+<style>
+
+@import url(http://fonts.googleapis.com/css?family=Amatic+SC:700);</p>
+body{
+    text-align: center;
+}
+h1{
+    font-family: 'Amatic SC', cursive;
+    font-weight: normal;
+    color: #8ac640;
+    font-size: 2.5em;
+}
+</style>
+```
+
+Refresh http://127.0.0.1:5000/
+
+The body and h1 elements will now have the style defined by their corresponding CSS rules (inside brackets {})
+
+### TASK
+1.  Utilize Bootstrap Grids to form 1 row of 3 columns that span the entire viewport. 1 Column for each form.
+   * https://www.w3schools.com/bootstrap/bootstrap_grid_basic.asp
+
+
+### Boostrap Classes
+Now, let's utilize the class attribute to quickly style the rest of the document.
+
+Let's start with buttons: https://www.w3schools.com/bootstrap/bootstrap_buttons.asp
+
+Add `class="btn btn-default"` to the submit button elements
+
+Refresh the page.
+
+Change one button's class to the following: `btn-primary btn-lg`
+
+Refresh.
+
+### Utilizing Templates
