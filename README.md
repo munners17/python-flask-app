@@ -389,16 +389,27 @@ Right-click the web page and select "View Source" to view the web page returned 
 
 ## Workshop Continued... Web Styling
 
-HTML elements can be changed by changing the style for how that element is displayed. Styling refers to color, sizing, font etc...  CSS allows you to set the rules for different styles and group them into classes.
+HTML elements can be changed by changing the style for how that element is displayed. Styling refers to properties like color, sizing, font etc...  CSS allows you to set a combination of properties into a style, identified by a name, called a class.
 
-Bootstrap is a framework that, among other things, contains many pre-defined styles in CSS format that can be referred by their class name. HTML elements just need to set their "class" attribute to the class names defined by bootstrap and the associated styling will be applied to that element.
+Bootstrap is a framework that, among other things, contains many pre-defined styles declared in CSS format. Instead of setting your own style by having to declare the many properties that define the look of an element, you can get a page up and running more quickly by utilizing existing styles.
+
+Bootstrap Resources
+   * CSS Styling: https://getbootstrap.com/docs/3.4/css/
+   * Components (buttons, forms etc): https://getbootstrap.com/docs/3.4/components/
+   * Tutorial: https://www.w3schools.com/bootstrap/default.asp
+      * Focus especially on:  Grid Basic, Typography, Tables, Alerts, Buttons, Forms, and Inputs
 
 ### Integrate Bootstrap
-First, load the index.html on your browser to review the look of how defaul html displays the page: http://127.0.0.1:5000/
+First add some text before your existing buttons using the heading and paragraph HTML elements. Paste in some new lines after the `<body>` tag in **index.html**:
 
-Next, import the bootstrap templates by linking to a server hosting the bootstrap content.
+```
+<h1>My INFO 257 Workshop</h1>
+<p>Select from the options below:</p>
+```
 
-Add the following after the <meta> element in index.html:
+Load the index.html on your browser to review the look of how defaul html displays the page: http://127.0.0.1:5000/
+
+Next, import the bootstrap templates by linking to a server hosting the bootstrap content. Add the following after the `<meta>` element in index.html:
 ```
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -412,17 +423,17 @@ Add the following after the <meta> element in index.html:
 
 Now refresh index.html and see how Bootstrap affects the look of the HTML elements
 
-Bootstrap has changed the default header elements (h1 in this case).
+Bootstrap has changed the default header element styling (h1 in this case).
 
 Let's override the Bootstrap styling with our own. Paste the following after the </head> tag to define our own CSS rules for the body and h1 elements:
 
 ```
 <!-- Create our own custom CSS -->
 <style>
-
-@import url(http://fonts.googleapis.com/css?family=Amatic+SC:700);</p>
+@import url(http://fonts.googleapis.com/css?family=Amatic+SC:700);
 body{
     text-align: center;
+    background-color: lightblue;
 }
 h1{
     font-family: 'Amatic SC', cursive;
@@ -435,24 +446,44 @@ h1{
 
 Refresh http://127.0.0.1:5000/
 
-The body and h1 elements will now have the style defined by their corresponding CSS rules (inside brackets {})
+The standard HTML body and h1 elements will now have the style defined by the corresponding CSS rules (inside the brackets {}).
 
-### TASK
-1.  Utilize Bootstrap Grids to form 1 row of 3 columns that span the entire viewport. 1 Column for each form.
-   * https://www.w3schools.com/bootstrap/bootstrap_grid_basic.asp
+#### TASK: Style index.html
+1.  Utilize Bootstrap Grids to create 1 row of 3 columns that span the entire viewport. There are 3 forms currently on our page. Place one form in each column.
+      * https://www.w3schools.com/bootstrap/bootstrap_grid_basic.asp
+
+1.  Create your own paragraph (`<p>`) styling with any style properties of your liking. After h1 {...} create a new CSS entry for p {} and declare at least 3 different property styles.
+      * https://www.w3schools.com/html/html_css.asp
 
 
 ### Boostrap Classes
-Now, let's utilize the class attribute to quickly style the rest of the document.
+Now, let's utilize the class attribute to quickly style the rest of the document. 
 
-Let's start with buttons: https://www.w3schools.com/bootstrap/bootstrap_buttons.asp
+The bootstrap framework includes pre-defined styles that are referred to by a class name. HTML elements just need to set their "class" attribute to the class names defined by Bootstrap and the associated styling will be applied to that element.
+
+Review button customization documentation: https://getbootstrap.com/docs/3.4/css/#buttons
 
 Add `class="btn btn-default"` to the submit button elements
 
 Refresh the page.
 
-Change one button's class to the following: `btn-primary btn-lg`
+Change one of the button's class to the following: `btn-primary btn-lg`
 
 Refresh.
 
-### Utilizing Templates
+#### TASK: Boostrap-ify the rest of the page
+1.  Place the entire page within a Bootstrap container class (use `<div>`): https://www.w3schools.com/bootstrap/bootstrap_get_started.asp
+
+1.  Change the styling of the existing drop down button to utilize Bootstrap form styling: https://www.w3schools.com/bootstrap/bootstrap_forms.asp
+
+### External CSS
+
+Move your custom styling to a stylesheet (CSS) file to separate our HTML layout from its style
+
+1.  Create a new sub-directory `/static`. Flask knows to look for static files like CSS here.
+1.  Create a new file mystyle.css
+1.  **CUT**+Paste everything between the <style> tags into mystyle.css. Be sure to CUT so there is no text between the `<style></style>` tags.
+1.  Reference the mystyle.css file in **index.html** by utilizing the Flask/Jinja template engine to generate the file location for the HTML link tag:
+      * Insert the following before `</head>`: `<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='mystyle.css') }}">`
+
+Refresh the page and nothing should have changed - your custom styling should still appear, now referenced from your own CSS file.
