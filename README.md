@@ -407,7 +407,7 @@ First add some text before your existing buttons using the heading and paragraph
 <p>Select from the options below:</p>
 ```
 
-Load the index.html on your browser to review the look of how defaul html displays the page: http://127.0.0.1:5000/
+Load the index.html on your browser to review the look of how default html displays the page: http://127.0.0.1:5000/
 
 Next, import the bootstrap templates by linking to a server hosting the bootstrap content. Add the following after the `<meta>` element in index.html:
 ```
@@ -425,7 +425,7 @@ Now refresh index.html and see how Bootstrap affects the look of the HTML elemen
 
 Bootstrap has changed the default header element styling (h1 in this case).
 
-Let's override the Bootstrap styling with our own. Paste the following after the </head> tag to define our own CSS rules for the body and h1 elements:
+Let's override the Bootstrap styling with our own. Paste the following after the `</head>` tag to define our own CSS rules for the body and h1 elements:
 
 ```
 <!-- Create our own custom CSS -->
@@ -452,7 +452,7 @@ The standard HTML body and h1 elements will now have the style defined by the co
 1.  Utilize Bootstrap Grids to create 1 row of 3 columns that span the entire viewport. There are 3 forms currently on our page. Place one form in each column.
       * https://www.w3schools.com/bootstrap/bootstrap_grid_basic.asp
 
-1.  Create your own paragraph (`<p>`) styling with any style properties of your liking. After h1 {...} create a new CSS entry for p {} and declare at least 3 different property styles.
+1.  Create your own paragraph (`<p>`) styling with any style properties of your liking. After h1 {...} create a new CSS entry for `p {}` and declare at least 3 different property styles.
       * https://www.w3schools.com/html/html_css.asp
 
 
@@ -481,7 +481,7 @@ Refresh.
 Move your custom styling to a stylesheet (CSS) file to separate our HTML layout from its style
 
 1.  Create a new sub-directory `/static`. Flask knows to look for static files like CSS here.
-1.  Create a new file mystyle.css
+1.  Create a new file mystyle.css inside the `/static` subfolder
 1.  **CUT**+Paste everything between the <style> tags into mystyle.css. Be sure to CUT so there is no text between the `<style></style>` tags.
 1.  Reference the mystyle.css file in **index.html** by utilizing the Flask/Jinja template engine to generate the file location for the HTML link tag:
       * Insert the following before `</head>`: `<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='mystyle.css') }}">`
